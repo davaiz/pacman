@@ -1,9 +1,11 @@
-import sysimport pygame
+import sys
+import pygame
 from pygame.locals import *
 from math import floor
 import random
 tile_Size = 32
-map_Size = 18
+map_Size = 16
+dots = 0
 
 
 def init_window():
@@ -82,8 +84,8 @@ class Ghost(GameObject):
             if self.y <= 0:
                 self.y = 0
                 self.direction = random.randint(1, 4)
-         if floor(pacman.x) == floor(self.x) and floor(pacman.y) == floor(self.y) :
-              Ghost.ghosts.remove(self)
+         if floor(pacman.x) == floor(self.x) and floor(pacman.y) == floor(self.y):
+              exit('You lost.')
          self.set_coord(self.x, self.y)
 
 
@@ -137,7 +139,6 @@ class Pacman(GameObject):
         if isinstance(MAP.map[int(self.y)][int(self.x)], Dot):
             MAP.map[int(self.y)][int(self.x)] = None
 
-
 def draw_ghosts(screen):
     for g in Ghost.ghosts:
         g.draw(screen)
@@ -177,14 +178,15 @@ class Map:
             f=open(filename, 'r')
             txt = f.readlines()
             f.close()
+            dots = 0
             for y in range(len(txt)):
                 self.map.append([])
                 for x in range(len(txt[y])):
-                    if '#' in txt[y][x]:
+                    if '*' in txt[y][x]:
                         self.map[-1].append(Wall(x, y))
                     elif '.' in txt[y][x]:
                         self.map[-1].append(Dot(x, y))
-
+                        dots += 1
                     elif txt[y][x] == "G":
                         Ghost.ghosts.append(Ghost(x ,y))
                     else:
@@ -194,7 +196,7 @@ class Map:
                 for x in range(len(self.map[y])):
                     if self.map[y][x]:
                        self.map[y][x].draw(screen)
-
+            print(dots)
 
 
 
@@ -218,6 +220,8 @@ def process_events(events, packman):
 
 if __name__ == '__main__':
     init_window()
+    tile_size = 32
+    map_size = 16
 
     global MAP
     MAP = Map('./resources/map.txt')
