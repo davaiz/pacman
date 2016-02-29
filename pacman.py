@@ -5,7 +5,6 @@ from math import floor
 import random
 tile_Size = 32
 map_Size = 16
-dots = 0
 
 
 def init_window():
@@ -112,6 +111,7 @@ class Pacman(GameObject):
     direction = property(__get_direction, __set_direction)
 
     def game_tick(self):
+
         super(Pacman, self).game_tick()
         if self.direction == 1:
             if not is_wall(floor(self.x + self.velocity), self.y):
@@ -178,7 +178,6 @@ class Map:
             f=open(filename, 'r')
             txt = f.readlines()
             f.close()
-            dots = 0
             for y in range(len(txt)):
                 self.map.append([])
                 for x in range(len(txt[y])):
@@ -186,7 +185,6 @@ class Map:
                         self.map[-1].append(Wall(x, y))
                     elif '.' in txt[y][x]:
                         self.map[-1].append(Dot(x, y))
-                        dots += 1
                     elif txt[y][x] == "G":
                         Ghost.ghosts.append(Ghost(x ,y))
                     else:
