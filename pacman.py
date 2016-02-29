@@ -196,7 +196,6 @@ class Map:
                 for x in range(len(self.map[y])):
                     if self.map[y][x]:
                        self.map[y][x].draw(screen)
-            print(dots)
 
 
 
@@ -239,3 +238,4 @@ if __name__ == '__main__':
         draw_ghosts(screen)
         MAP.draw(screen)
         pygame.display.update()
+
