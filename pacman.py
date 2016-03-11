@@ -79,13 +79,13 @@ class Ghost(GameObject):
         if self.direction == 1:
             m = self.x
             self.x += self.velocity
-            if self.x >= self.map_size-1 or map.get(self.x, self.y) == 'w':
+            if self.x >= self.map_size or map.get(self.x, self.y) == 'w':
                 self.x = m
                 self.direction = random.randint(1, 4)
         elif self.direction == 2:
             m = self.y
             self.y += self.velocity
-            if self.y >= self.map_size-1 or map.get(self.x, self.y) == 'w':
+            if self.y >= self.map_size or map.get(self.x, self.y) == 'w':
                 self.y = m
                 self.direction = random.randint(1, 4)
         elif self.direction == 3:
@@ -115,12 +115,12 @@ class Pacman(GameObject):
         if self.direction == 1:
             m = self.x
             self.x += self.velocity
-            if self.x >= self.map_size-1 or map.get(self.x, self.y) == 'w':
+            if self.x >= self.map_size or map.get(self.x, self.y) == 'w':
                 self.x = m
         elif self.direction == 2:
             m = self.y
             self.y += self.velocity
-            if self.y >= self.map_size-1 or map.get(self.x, self.y) == 'w':
+            if self.y >= self.map_size or map.get(self.x, self.y) == 'w':
                 self.y = m
         elif self.direction == 3:
             m = self.x
